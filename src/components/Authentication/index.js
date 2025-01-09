@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-function SignUp() {
+function Authentication() {
   return (
     <>
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-lavender-200 to-peach-100">
@@ -9,9 +9,8 @@ function SignUp() {
             Moodish
           </h1>
 
-          {/* Sign-up Form */}
           <form className="space-y-4">
-          <input
+            <input
               type="text"
               placeholder="Name"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
@@ -26,12 +25,7 @@ function SignUp() {
               placeholder="Password"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
             />
-            {/* <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition"
-            >
-              Sign Up
-            </button> */}
+
             <button
               type="submit"
               className="w-full bg-lavender-600 text-white py-3 rounded-lg hover:bg-lavender-800 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-lavender-400"
@@ -41,9 +35,8 @@ function SignUp() {
             </button>
           </form>
 
-          {/* Login Redirect */}
           <p className="text-center text-gray-500 mt-4 text-sm">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <a href="/login" className="text-lavender-800 hover:underline">
               Log in
             </a>
@@ -54,4 +47,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default Authentication;
