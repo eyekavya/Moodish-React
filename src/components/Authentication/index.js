@@ -1,8 +1,16 @@
 import React from "react";
+import Nav from "../Nav";
+import { useNavigate } from "react-router-dom";
 
 function Authentication() {
+  const navigate = useNavigate();
+
+  const handleRouting = (route) => {
+    navigate(route);
+  };
   return (
     <>
+      <Nav />
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-lavender-200 to-peach-100">
         <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
           <h1 className="text-center text-4xl font-extrabold bg-gradient-to-r from-peach-800 to-lavender-800 text-transparent bg-clip-text tracking-wide mb-8">
@@ -30,6 +38,7 @@ function Authentication() {
               type="submit"
               className="w-full bg-lavender-600 text-white py-3 rounded-lg hover:bg-lavender-800 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-lavender-400"
               disabled={false}
+              onClick={() => handleRouting("/signup")}
             >
               Sign Up
             </button>
@@ -37,7 +46,11 @@ function Authentication() {
 
           <p className="text-center text-gray-500 mt-4 text-sm">
             Already have an account?{" "}
-            <a href="/login" className="text-lavender-800 hover:underline">
+            <a
+              href="/signin"
+              className="text-lavender-800 hover:underline"
+              onClick={() => handleRouting("/signin")}
+            >
               Log in
             </a>
           </p>
