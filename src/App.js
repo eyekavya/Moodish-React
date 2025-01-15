@@ -10,8 +10,14 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/signup" element={<Authentication />} />
-            <Route path="/signin" element={<Authentication />} />
+            <Route
+              path="/signup"
+              element={<Authentication signinSignup="signup" />}
+            />
+            <Route
+              path="/signin"
+              element={<Authentication signinSignup="signin" />}
+            />
           </Routes>
         </Router>
       </div>
