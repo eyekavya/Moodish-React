@@ -36,10 +36,11 @@ function Authentication({ isSignUp = false }) {
           <h1 className="text-center text-4xl font-extrabold bg-gradient-to-r from-peach-800 to-lavender-800 text-transparent bg-clip-text tracking-wide mb-8">
             Moodish
           </h1>
-          <form className="space-y-4">
+          <div className="space-y-4">
             {isSignUp && (
               <input
                 type="text"
+                name="name"
                 placeholder="Name"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
                 onChange={onChangeInput}
@@ -64,14 +65,13 @@ function Authentication({ isSignUp = false }) {
             />
 
             <button
-              type="submit"
               className="w-full bg-lavender-600 text-white py-3 rounded-lg hover:bg-lavender-800 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-lavender-400"
               disabled={false}
               onClick={isSignUp ? onClickSignUp : onClickSignIn}
             >
               {isSignUp ? "Sign Up" : "Sign In"}
             </button>
-          </form>
+          </div>
           <p className="text-center text-gray-500 mt-4 text-sm">
             {isSignUp ? "Already have an account?" : "Don't have an account?"}
             <Link
