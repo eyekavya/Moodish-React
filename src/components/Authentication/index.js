@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import Nav from "../Nav";
 import { useNavigate } from "react-router-dom";
 import authApi from "../../utils/firebase/auth/authApi";
-
 function Authentication(props) {
+  const navigate = useNavigate();
+
+  console.log(props.signinSignup);
+
   const [signUpData, setSignUpData] = useState({ email: "", password: "" });
   const [signInData, setSignInData] = useState({ email: "", password: "" });
 
@@ -29,11 +32,10 @@ function Authentication(props) {
     console.log(data);
   }
 
-  const navigate = useNavigate();
-
   const handleRouting = (route) => {
     navigate(route);
   };
+
   return (
     <>
       <Nav />
@@ -42,7 +44,6 @@ function Authentication(props) {
           <h1 className="text-center text-4xl font-extrabold bg-gradient-to-r from-peach-800 to-lavender-800 text-transparent bg-clip-text tracking-wide mb-8">
             Moodish
           </h1>
-
           <form className="space-y-4">
             {props.signinSignup === "signup" && (
               <input
@@ -82,62 +83,40 @@ function Authentication(props) {
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
             />
 
-            {props.signinSignup === "signup" ? (
-              <button
-                type="submit"
-                className="w-full bg-lavender-600 text-white py-3 rounded-lg hover:bg-lavender-800 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-lavender-400"
-                disabled={false}
-                onClick={() => {
-                  onClickSignUp();
-                  handleRouting("/signup");
-                }}
-              >
-                Sign Up
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="w-full bg-lavender-600 text-white py-3 rounded-lg hover:bg-lavender-800 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-lavender-400"
-                disabled={false}
-                onClick={() => {
-                  onClickSignIn();
-                  handleRouting("/signin");
-                }}
-              >
-                Sign In
-              </button>
-            )}
+            <button
+              type="submit"
+              className="w-full bg-lavender-600 text-white py-3 rounded-lg hover:bg-lavender-800 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-lavender-400"
+              disabled={false}
+              onClick={
+                props.signinSignup === "signup"
+                  ? () => {
+                      onClickSignUp();
+                      handleRouting("/signup");
+                    }
+                  : () => {
+                      onClickSignIn();
+                      handleRouting("/signin");
+                    }
+              }
+            >
+              {props.signinSignup === "signup" ? "Sign Up" : "Sign In"}
+            </button>
           </form>
-
-          {props.signinSignup === "signup" ? (
-            <p className="text-center text-gray-500 mt-4 text-sm">
-              Already have an account?{" "}
-              <a
-                href="/signin"
-                className="text-lavender-800 hover:underline"
-                onClick={() => {
-                  onClickSignIn();
-                  handleRouting("/signin");
-                }}
-              >
-                Log in
-              </a>
-            </p>
-          ) : (
-            <p className="text-center text-gray-500 mt-4 text-sm">
-              Don't have an account?{" "}
-              <a
-                href="/signup"
-                className="text-lavender-800 hover:underline"
-                onClick={() => {
-                  onClickSignUp();
-                  handleRouting("/signup");
-                }}
-              >
-                Sign up
-              </a>
-            </p>
-          )}
+          <p className="text-center text-gray-500 mt-4 text-sm">
+            {props.signinSignup === "signup"
+              ? "Already have an account?"
+              : "Don't have an account?"}
+            <a
+              href={props.signinSignup === "signup" ? "/signin" : "/signup"}
+              className="text-lavender-800 hover:underline"
+              onClick={() => {
+                onClickSignIn();
+                handleRouting("/signin");
+              }}
+            >
+              {props.signinSignup === "signup" ? "Log in" : "Sign up"}
+            </a>
+          </p>
         </div>
       </div>
     </>
