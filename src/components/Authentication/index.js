@@ -1,40 +1,32 @@
 import React, { useState } from "react";
 import Nav from "../Nav";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authApi from "../../utils/firebase/auth/authApi";
-function Authentication(props) {
+
+function Authentication({ isSignUp = false }) {
   const navigate = useNavigate();
 
-  console.log(props.signinSignup);
+  const [authData, setAuthData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-  const [signUpData, setSignUpData] = useState({ email: "", password: "" });
-  const [signInData, setSignInData] = useState({ email: "", password: "" });
-
-  function handleEmail(e) {
-    setSignUpData({ ...signUpData, email: e.target.value });
-  }
-
-  function handlePassword(e) {
-    setSignUpData({ ...signUpData, password: e.target.value });
-  }
-
-  function handleSignInData(e) {
-    setSignInData({ ...signInData, [e.target.name]: e.target.value });
+  function onChangeInput(e) {
+    setAuthData({ ...authData, [e.target.name]: e.target.value });
   }
 
   async function onClickSignUp() {
-    const data = await authApi.signUpWithEmailPassword(signUpData);
+    const data = await authApi.signUpWithEmailPassword(authData);
     console.log(data);
+    navigate("/");
   }
 
   async function onClickSignIn() {
-    const data = await authApi.signInWithEmailPassword(signUpData);
+    const data = await authApi.signInWithEmailPassword(authData);
     console.log(data);
+    navigate("/");
   }
-
-  const handleRouting = (route) => {
-    navigate(route);
-  };
 
   return (
     <>
@@ -45,41 +37,29 @@ function Authentication(props) {
             Moodish
           </h1>
           <form className="space-y-4">
-            {props.signinSignup === "signup" && (
+            {isSignUp && (
               <input
                 type="text"
                 placeholder="Name"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
+                onChange={onChangeInput}
+                value={authData.name}
               />
             )}
             <input
               type="email"
               placeholder="Email"
               name="email"
-              value={
-                props.signinSignup === "signup"
-                  ? signUpData.email
-                  : signInData.email
-              }
-              onChange={
-                props.signinSignup === "signup" ? handleEmail : handleSignInData
-              }
+              value={authData.email}
+              onChange={onChangeInput}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
             />
             <input
               type="password"
               placeholder="Password"
               name="password"
-              value={
-                props.signinSignup === "signup"
-                  ? signUpData.password
-                  : signInData.password
-              }
-              onChange={
-                props.signinSignup === "signup"
-                  ? handlePassword
-                  : handleSignInData
-              }
+              value={authData.password}
+              onChange={onChangeInput}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
             />
 
@@ -87,35 +67,19 @@ function Authentication(props) {
               type="submit"
               className="w-full bg-lavender-600 text-white py-3 rounded-lg hover:bg-lavender-800 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-lavender-400"
               disabled={false}
-              onClick={
-                props.signinSignup === "signup"
-                  ? () => {
-                      onClickSignUp();
-                      handleRouting("/signup");
-                    }
-                  : () => {
-                      onClickSignIn();
-                      handleRouting("/signin");
-                    }
-              }
+              onClick={isSignUp ? onClickSignUp : onClickSignIn}
             >
-              {props.signinSignup === "signup" ? "Sign Up" : "Sign In"}
+              {isSignUp ? "Sign Up" : "Sign In"}
             </button>
           </form>
           <p className="text-center text-gray-500 mt-4 text-sm">
-            {props.signinSignup === "signup"
-              ? "Already have an account?"
-              : "Don't have an account?"}
-            <a
-              href={props.signinSignup === "signup" ? "/signin" : "/signup"}
+            {isSignUp ? "Already have an account?" : "Don't have an account?"}
+            <Link
+              to={isSignUp ? "/signin" : "/signup"}
               className="text-lavender-800 hover:underline"
-              onClick={() => {
-                onClickSignIn();
-                handleRouting("/signin");
-              }}
             >
-              {props.signinSignup === "signup" ? "Log in" : "Sign up"}
-            </a>
+              {isSignUp ? " Log in" : " Sign up"}
+            </Link>
           </p>
         </div>
       </div>
