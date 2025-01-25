@@ -1,38 +1,44 @@
-.App {
-  text-align: center;
+/* Global Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px; /* Thinner scrollbar */
+  height: 6px; /* For horizontal scrollbar */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+::-webkit-scrollbar-track {
+  background: #f4f0fa; /* Lighter lavender background for the track */
+  border-radius: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+::-webkit-scrollbar-thumb {
+  background-color: #9c8bbe; /* Lavender shade for the thumb */
+  border-radius: 10px;
+  border: 2px solid #f4f0fa; /* Light lavender border to contrast with the track */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+::-webkit-scrollbar-thumb:hover {
+  background-color: #6a5e95; /* Darker lavender for the hover effect */
 }
 
-.App-link {
-  color: #61dafb;
+/* For horizontal scrollbars */
+::-webkit-scrollbar-horizontal {
+  height: 6px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+::-webkit-scrollbar-track-horizontal {
+  background: #f4f0fa; /* Light lavender background for horizontal track */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb-horizontal {
+  background-color: #9c8bbe; /* Lavender thumb for horizontal scroll */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb-horizontal:hover {
+  background-color: #6a5e95; /* Darker lavender for hover on horizontal scroll */
+}
+
+/* Smooth scrolling globally */
+html {
+  scroll-behavior: smooth;
 }
