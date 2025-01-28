@@ -7,7 +7,7 @@ module.exports = {
         lavender: {
           100: "#F4F0FA", // Lighter lavender for backgrounds
           200: "#E5DFF1", // Existing lavender shade
-          400: "#C1B2DB", // Mid-tone lavender for borders or subtle accents
+          400: "#C1B2DB", // Mid-tone lavender for borders or subtle accentslavender
           600: "#9C8BBE", // Deeper lavender for hover states
           800: "#6A5E95", // Existing darker lavender for text or contrast
         },
