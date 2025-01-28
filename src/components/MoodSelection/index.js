@@ -92,9 +92,8 @@ function MoodSelection() {
               className="w-full p-4 rounded-lg border border-lavender-400 shadow-sm focus:ring-2 focus:ring-lavender-400 focus:outline-none"
             />
             <button
-              type="submit"
               disabled={loading || !userMood}
-              className="absolute right-3 top-1/2 -translate-y-1/2 px-5 py-2 bg-lavender-500 text-white rounded-lg shadow-md hover:bg-lavender-600 focus:ring-2 focus:ring-lavender-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="absolute right-3 top-1/2 -translate-y-1/2 px-5 py-2 bg-lavender-600 text-white rounded-lg shadow-md hover:bg-lavender-800 focus:ring-2 focus:ring-lavender-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -110,7 +109,8 @@ function MoodSelection() {
           {moods.map((mood) => (
             <div
               key={mood.id}
-              className="bg-white border border-gray-200 rounded-lg shadow-md p-5 flex flex-col items-center text-center cursor-pointer hover:bg-lavender-200 transition-transform transform hover:scale-105"
+              className="bg-white border border-gray-200 rounded-lg shadow-md p-5 flex flex-col items-center text-center cursor-pointer 
+        hover:bg-gradient-to-b hover:from-lavender-300 hover:to-peach-200 transition-transform transform hover:scale-105"
             >
               <span className="text-2xl">{mood.name.split(" ")[1]}</span>
               <p className="mt-2 text-lg font-medium text-gray-700">
@@ -127,7 +127,7 @@ function MoodSelection() {
               {/* Close Button */}
               <button
                 onClick={() => setShowModal(false)}
-                className="absolute top-3 right-3 bg-lavender-500 text-white p-2 rounded-full hover:bg-lavender-600 transition-all"
+                className="absolute top-3 right-3 bg-lavender-600 text-white p-2 rounded-full hover:bg-lavender-800 transition-all"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -135,7 +135,8 @@ function MoodSelection() {
               {/* Modal Content */}
               <div className="flex items-center gap-2 mb-6">
                 <Sparkles className="w-6 h-6 text-yellow-500 animate-pulse" />
-                <h2 className="text-2xl font-semibold text-indigo-900 flex items-center gap-2">
+
+                <h2 className="text-2xl font-semibold text-lavender-800 flex items-center gap-2">
                   Your Personalized Suggestions
                 </h2>
               </div>
@@ -144,9 +145,10 @@ function MoodSelection() {
                   formatSuggestions(suggestions).map((point, index) => (
                     <div
                       key={index}
-                      className="p-4 rounded-lg bg-gradient-to-r from-indigo-50 to-purple-50 transition-transform hover:scale-105 shadow-md"
+                      className="p-4 rounded-lg bg-gradient-to-r from-lavender-200 to-peach-100 transform transition-all duration-300 hover:scale-102 hover:shadow-md animate-fade-in"
+                      style={{ animationDelay: `${index * 150}ms` }}
                     >
-                      <p className="text-indigo-800">{point}</p>
+                      <p className="text-lavender-800 font-medium">{point}</p>
                     </div>
                   ))
                 ) : (
