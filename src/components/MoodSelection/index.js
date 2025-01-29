@@ -53,6 +53,7 @@ function MoodSelection() {
       const result = await analyzeMood(userMood);
       setSuggestions(result);
       setShowModal(true);
+      console.log("hi");
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -60,16 +61,19 @@ function MoodSelection() {
     }
   };
 
-  async function handleMoodCardClick() {
-    setUserMood(moods.name);
+  async function handleMoodCardClick(moodName) {
     setSuggestions("");
     setShowModal(true);
+    setLoading(true);
 
     try {
-      const result = await analyzeMood(userMood);
+      const result = await analyzeMood(moodName);
       setSuggestions(result);
+      console.log(moodName);
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -118,15 +122,15 @@ function MoodSelection() {
         </form>
 
         {/* Mood Cards */}
-        <div
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 w-full max-w-6xl"
-          onClick={handleMoodCardClick}
-        >
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 w-full max-w-6xl">
           {moods.map((moods) => (
             <div
               key={moods.id}
               className="bg-white border border-gray-200 rounded-lg shadow-md p-5 flex flex-col items-center text-center cursor-pointer 
         hover:bg-gradient-to-b hover:from-lavender-300 hover:to-peach-200 transition-transform transform hover:scale-105"
+              onClick={() => {
+                handleMoodCardClick(moods.name);
+              }}
             >
               <span className="text-2xl">{moods.name.split(" ")[1]}</span>
               <p className="mt-2 text-lg font-medium text-gray-700">
@@ -151,13 +155,17 @@ function MoodSelection() {
               {/* Modal Content */}
               <div className="flex items-center gap-2 mb-6">
                 <Sparkles className="w-6 h-6 text-yellow-500 animate-pulse" />
-
                 <h2 className="text-2xl font-semibold text-lavender-800 flex items-center gap-2">
                   Your Personalized Suggestions
                 </h2>
               </div>
+
               <div className="space-y-4">
-                {suggestions ? (
+                {loading ? (
+                  <div className="flex justify-center">
+                    <Loader2 className="w-8 h-8 animate-spin text-lavender-600" />
+                  </div>
+                ) : suggestions ? (
                   formatSuggestions(suggestions).map((point, index) => (
                     <div
                       key={index}
