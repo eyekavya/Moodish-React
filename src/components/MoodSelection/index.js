@@ -60,6 +60,21 @@ function MoodSelection() {
     }
   };
 
+  async function handleMoodCardClick() {
+    // setLoading(true);
+    setShowModal(false);
+    try {
+      const result = await analyzeMood(userMood);
+      setSuggestions(result);
+      setShowModal(true);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    //  finally {
+    //   setLoading(false);
+    // }
+  }
+
   const formatSuggestions = (text) => {
     return text
       .split("•")
@@ -105,7 +120,10 @@ function MoodSelection() {
         </form>
 
         {/* Mood Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 w-full max-w-6xl">
+        <div
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 w-full max-w-6xl"
+          onClick={handleMoodCardClick}
+        >
           {moods.map((mood) => (
             <div
               key={mood.id}
