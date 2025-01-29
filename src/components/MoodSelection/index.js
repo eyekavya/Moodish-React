@@ -61,18 +61,16 @@ function MoodSelection() {
   };
 
   async function handleMoodCardClick() {
-    // setLoading(true);
-    setShowModal(false);
+    setUserMood(moods.name);
+    setSuggestions("");
+    setShowModal(true);
+
     try {
       const result = await analyzeMood(userMood);
       setSuggestions(result);
-      setShowModal(true);
     } catch (error) {
       console.error("Error:", error);
     }
-    //  finally {
-    //   setLoading(false);
-    // }
   }
 
   const formatSuggestions = (text) => {
@@ -124,15 +122,15 @@ function MoodSelection() {
           className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 w-full max-w-6xl"
           onClick={handleMoodCardClick}
         >
-          {moods.map((mood) => (
+          {moods.map((moods) => (
             <div
-              key={mood.id}
+              key={moods.id}
               className="bg-white border border-gray-200 rounded-lg shadow-md p-5 flex flex-col items-center text-center cursor-pointer 
         hover:bg-gradient-to-b hover:from-lavender-300 hover:to-peach-200 transition-transform transform hover:scale-105"
             >
-              <span className="text-2xl">{mood.name.split(" ")[1]}</span>
+              <span className="text-2xl">{moods.name.split(" ")[1]}</span>
               <p className="mt-2 text-lg font-medium text-gray-700">
-                {mood.name.split(" ")[0]}
+                {moods.name.split(" ")[0]}
               </p>
             </div>
           ))}
