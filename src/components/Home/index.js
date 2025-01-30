@@ -8,7 +8,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-lavender-200 to-peach-100 flex flex-col items-center justify-center px-6 text-center">
       {/* Header */}
       <motion.h1
-        className="text-5xl font-bold text-[#111827] flex items-center gap-2"
+        className="text-5xl font-bold text-lavender-900 flex items-center gap-2"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
