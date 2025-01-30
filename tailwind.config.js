@@ -10,6 +10,7 @@ module.exports = {
           400: "#C1B2DB", // Mid-tone lavender for borders or subtle accentslavender
           600: "#9C8BBE", // Deeper lavender for hover states
           800: "#6A5E95", // Existing darker lavender for text or contrast
+          900: "#4A235A", // Darkest lavender for headings or backgrounds
         },
         peach: {
           100: "#FFF4EF", // Very light peach for soft backgrounds
