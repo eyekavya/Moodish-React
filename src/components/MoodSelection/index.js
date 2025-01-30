@@ -156,7 +156,7 @@ function MoodSelection() {
               <div className="flex items-center gap-2 mb-6">
                 <Sparkles className="w-6 h-6 text-yellow-500 animate-pulse" />
                 <h2 className="text-2xl font-semibold text-lavender-800 flex items-center gap-2">
-                  Your Personalized Suggestions
+                  Here's Something to Brighten Your Day!
                 </h2>
               </div>
 
