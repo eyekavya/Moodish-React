@@ -8,7 +8,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-lavender-200 to-peach-100 flex flex-col items-center justify-center px-6 text-center">
       {/* Header */}
       <motion.h1
-        className="text-5xl font-bold text-lavender-900 flex items-center gap-2"
+        className="text-5xl font-bold text-[#111827] flex items-center gap-2"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -35,7 +35,7 @@ export default function Home() {
         transition={{ delay: 0.5 }}
       >
         <Link
-          to="/mood-selection"
+          to="/mood"
           className="px-6 py-3 bg-lavender-600 text-white text-lg font-semibold rounded-full shadow-lg hover:bg-lavender-800 transition-all flex items-center gap-2"
         >
           Start Your Mood Journey <Smile className="w-6 h-6" />
