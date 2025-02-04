@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Nav from "../Nav";
 import { Link, useNavigate } from "react-router-dom";
 import authApi from "../../utils/firebase/auth/authApi";
+import firestoreApi from "../../utils/firebase/firestore/db";
 
 function Authentication({ isSignUp = false }) {
   const navigate = useNavigate();
@@ -19,6 +20,16 @@ function Authentication({ isSignUp = false }) {
   async function onClickSignUp() {
     const data = await authApi.signUpWithEmailPassword(authData);
     console.log(data);
+    await firestoreApi.saveDoc(data?.user?.uid, {
+      name: authData?.name,
+      email: authData?.email,
+      signedUp: firestoreApi.getTimeStamp(),
+    });
+    console.log({
+      name: authData?.name,
+      email: authData?.email,
+      signedUp: firestoreApi.getTimeStamp(),
+    });
     navigate("/");
   }
 
