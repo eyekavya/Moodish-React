@@ -27,9 +27,14 @@ async function signInWithEmailPassword(signInData) {
   });
 }
 
+const handleLogout = async () => {
+  return await auth.signOut();
+};
+
 const authApi = {
   signUpWithEmailPassword,
   signInWithEmailPassword,
+  handleLogout,
 };
 
 export default authApi;
