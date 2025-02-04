@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Nav from "../Nav";
 import { analyzeMood } from "../../utils/googleAI/moodAnalyzer";
 import { Loader2, Send, Sparkles, X } from "lucide-react";
 
@@ -86,7 +85,6 @@ function MoodSelection() {
 
   return (
     <>
-      <Nav />
       <div className="min-h-screen bg-gradient-to-b from-lavender-200 to-peach-100 flex flex-col items-center py-10 px-6">
         {/* Header */}
         <header className="text-center mb-8">

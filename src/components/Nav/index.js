@@ -13,7 +13,7 @@ function Nav() {
       <div>
         <nav className="h-16 flex justify-between items-center px-8 py-4 bg-gradient-to-r from-peach-100 to-lavender-200 shadow-md">
           <h2
-            className="text-2xl font-extrabold bg-gradient-to-r from-peach-800 to-lavender-800 text-transparent bg-clip-text tracking-wide"
+            className="text-2xl font-extrabold bg-gradient-to-r from-peach-800 to-lavender-800 text-transparent bg-clip-text tracking-wide cursor-pointer"
             onClick={() => handleRouting("/")}
           >
             Moodish

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Nav from "../Nav";
 import { Link, useNavigate } from "react-router-dom";
 import authApi from "../../utils/firebase/auth/authApi";
 import firestoreApi from "../../utils/firebase/firestore/db";
@@ -41,7 +40,6 @@ function Authentication({ isSignUp = false }) {
 
   return (
     <>
-      <Nav />
       <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-gradient-to-b from-lavender-200 to-peach-100">
         <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
           <h1 className="text-center text-4xl font-extrabold bg-gradient-to-r from-peach-800 to-lavender-800 text-transparent bg-clip-text tracking-wide mb-8">
