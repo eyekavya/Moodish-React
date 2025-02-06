@@ -10,6 +10,8 @@ function Nav() {
     navigate(route);
   };
 
+  console.log(user);
+
   return (
     <>
       <div>

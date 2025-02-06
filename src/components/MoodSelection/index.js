@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { analyzeMood } from "../../utils/googleAI/moodAnalyzer";
 import { Loader2, Send, Sparkles, X } from "lucide-react";
+import firestoreApi from "../../utils/firebase/firestore/db";
 
 function MoodSelection() {
   const [userMood, setUserMood] = useState("");
@@ -64,11 +65,17 @@ function MoodSelection() {
     setSuggestions("");
     setShowModal(true);
     setLoading(true);
+    const uid = firestoreApi.getCurrentUserId();
+    const data = {
+      mood: moodName,
+      moodTimeStamp: firestoreApi.getTimeStamp(),
+    };
+
+    await firestoreApi.saveMood(uid, data);
 
     try {
       const result = await analyzeMood(moodName);
       setSuggestions(result);
-      console.log(moodName);
     } catch (error) {
       console.error("Error:", error);
     } finally {
