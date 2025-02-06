@@ -24,11 +24,7 @@ function Authentication({ isSignUp = false }) {
       email: authData?.email,
       signedUp: firestoreApi.getTimeStamp(),
     });
-    console.log({
-      name: authData?.name,
-      email: authData?.email,
-      signedUp: firestoreApi.getTimeStamp(),
-    });
+
     navigate("/");
   }
 
