@@ -1,11 +1,99 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { Sparkles, Smile, User, Calendar, BarChart } from "lucide-react";
 
-function Profile() {
+export default function ProfilePage() {
   return (
-    <>
-      <h1>Profile</h1>
-    </>
+    <div className="min-h-screen bg-gradient-to-b from-lavender-200 to-peach-100 flex flex-col items-center py-10 px-6">
+      {/* Profile Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-lg text-center"
+      >
+        <div className="flex justify-center mb-4">
+          <div className="w-24 h-24 bg-lavender-400 rounded-full flex items-center justify-center shadow-md">
+            <User className="w-12 h-12 text-white" />
+          </div>
+        </div>
+        <h1 className="text-3xl font-bold text-gray-900">Kavya</h1>
+        <p className="text-text-secondary mt-2">kavya@example.com</p>
+      </motion.div>
+
+      {/* Mood Summary */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="mt-8 w-full max-w-lg"
+      >
+        <div className="bg-white p-6 rounded-2xl shadow-md">
+          <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
+            <Sparkles className="text-yellow-500" /> Mood Overview
+          </h2>
+          <p className="text-text-secondary mt-2">
+            Your most frequent moods this week
+          </p>
+          <div className="grid grid-cols-3 gap-4 mt-4">
+            <div className="bg-lavender-300 p-3 rounded-lg text-center text-gray-900">
+              😊 Happy
+            </div>
+            <div className="bg-peach-300 p-3 rounded-lg text-center text-gray-900">
+              😢 Sad
+            </div>
+            <div className="bg-lavender-500 p-3 rounded-lg text-center text-white">
+              😰 Stressed
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Progress Tracking */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="mt-8 w-full max-w-lg"
+      >
+        <div className="bg-white p-6 rounded-2xl shadow-md">
+          <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
+            <BarChart className="text-blue-500" /> Mood Progress
+          </h2>
+          <p className="text-text-secondary mt-2">
+            See how your mood has changed over time
+          </p>
+          <div className="mt-4 h-32 bg-lavender-100 rounded-lg flex items-center justify-center">
+            <p className="text-lavender-700">[Mood Graph Placeholder]</p>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Mood Tracking History */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className="mt-8 w-full max-w-lg"
+      >
+        <div className="bg-white p-6 rounded-2xl shadow-md">
+          <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
+            <Calendar className="text-green-500" /> Mood History
+          </h2>
+          <p className="text-text-secondary mt-2">Your latest mood logs</p>
+          <ul className="mt-4 space-y-2">
+            <li className="bg-lavender-200 p-3 rounded-lg">
+              😊 Feeling great - 2 hours ago
+            </li>
+            <li className="bg-peach-200 p-3 rounded-lg">
+              😰 Stressed - Yesterday
+            </li>
+            <li className="bg-lavender-300 p-3 rounded-lg">
+              🥱 Tired - 3 days ago
+            </li>
+          </ul>
+        </div>
+      </motion.div>
+    </div>
   );
 }
-
-export default Profile;
