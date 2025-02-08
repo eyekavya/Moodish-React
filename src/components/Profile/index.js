@@ -1,8 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Smile, User, Calendar, BarChart } from "lucide-react";
+import {
+  Sparkles,
+  Smile,
+  User,
+  Calendar,
+  BarChart,
+  Loader2,
+} from "lucide-react";
+import firestoreApi from "../../utils/firebase/firestore/db";
+import { useAuth } from "../../hooks/useAuth";
 
-export default function ProfilePage() {
+function Profile() {
+  const { user } = useAuth();
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!user?.uid) return;
+      setLoading(true);
+      try {
+        const data = await firestoreApi.getUserData(user.uid);
+        setUserData(data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, [user]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="w-8 h-8 animate-spin text-lavender-600" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-lavender-200 to-peach-100 flex flex-col items-center py-10 px-6">
       {/* Profile Header */}
@@ -17,8 +54,10 @@ export default function ProfilePage() {
             <User className="w-12 h-12 text-white" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold text-gray-900">Kavya</h1>
-        <p className="text-text-secondary mt-2">kavya@example.com</p>
+        <h1 className="text-3xl font-bold text-gray-900 capitalize">
+          {userData?.name}
+        </h1>
+        <p className="text-text-secondary mt-2">{userData?.email}</p>
       </motion.div>
 
       {/* Mood Summary */}
@@ -97,3 +136,5 @@ export default function ProfilePage() {
     </div>
   );
 }
+
+export default Profile;

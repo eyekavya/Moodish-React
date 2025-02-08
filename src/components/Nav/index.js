@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import authApi from "../../utils/firebase/auth/authApi";
 
 function Nav() {
   const { user } = useAuth();
@@ -10,7 +11,14 @@ function Nav() {
     navigate(route);
   };
 
-  console.log(user);
+  const handleLogoutClick = async () => {
+    try {
+      authApi.handleLogout();
+      handleRouting("/signin");
+    } catch (error) {
+      console.error("Error logging out: ", error);
+    }
+  };
 
   return (
     <>
@@ -33,7 +41,7 @@ function Nav() {
               </button>
               <button
                 className="px-6 py-2 rounded-lg bg-lavender-600 text-white hover:bg-lavender-800 transition-all duration-200 font-bold"
-                onClick={() => handleRouting("/signin")}
+                onClick={handleLogoutClick}
               >
                 Logout
               </button>

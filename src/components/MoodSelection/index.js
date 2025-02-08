@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { analyzeMood } from "../../utils/googleAI/moodAnalyzer";
 import { Loader2, Send, Sparkles, X } from "lucide-react";
 import firestoreApi from "../../utils/firebase/firestore/db";
+import { useAuth } from "../../hooks/useAuth";
 
 function MoodSelection() {
+  const { user } = useAuth();
   const [userMood, setUserMood] = useState("");
   const [suggestions, setSuggestions] = useState("");
   const [loading, setLoading] = useState(false);
@@ -66,9 +68,10 @@ function MoodSelection() {
     setShowModal(true);
     setLoading(true);
     const uid = firestoreApi.getCurrentUserId();
+    console.log(uid);
     const data = {
       mood: moodName,
-      moodTimeStamp: firestoreApi.getTimeStamp(),
+      moodTimeStamp: user?.uid,
     };
 
     await firestoreApi.saveMood(uid, data);
