@@ -31,6 +31,9 @@ module.exports = {
         text: {
           primary: "#4A4A68", // Deep lavender-gray for primary text
           secondary: "#6F6F8E", // Softer secondary text
+          accent: "#8A8AB3", // Muted lavender for subtle highlights
+          muted: "#A5A5C3", // Light desaturated purple for less prominent text
+          contrast: "#2E2E4F", // Darker shade for contrast when needed
         },
       },
     },

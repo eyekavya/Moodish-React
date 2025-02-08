@@ -7,6 +7,7 @@ import {
   Calendar,
   BarChart,
   Loader2,
+  Clock,
 } from "lucide-react";
 import firestoreApi from "../../utils/firebase/firestore/db";
 import { useAuth } from "../../hooks/useAuth";
@@ -15,6 +16,23 @@ function Profile() {
   const { user } = useAuth();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // const formatDate = (timestamp) => {
+  //   if (!timestamp) return "Unknown";
+  //   const date = new Date(timestamp);
+  //   return new Intl.DateTimeFormat("en-US", {
+  //     year: "numeric",
+  //     month: "long",
+  //     day: "numeric",
+  //   }).format(date);
+  // };
+
+  const formatDate = (timestamp) => {
+    if (!timestamp) return "N/A";
+    // Handle both Firestore Timestamps and regular Dates
+    const date = timestamp?.toDate ? timestamp.toDate() : new Date(timestamp);
+    return date.toLocaleDateString();
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -35,7 +53,7 @@ function Profile() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader2 className="w-8 h-8 animate-spin text-lavender-600" />
+        <Loader2 className="w-12 h-12 animate-spin text-lavender-600" />
       </div>
     );
   }
@@ -54,10 +72,14 @@ function Profile() {
             <User className="w-12 h-12 text-white" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 capitalize">
+        <h1 className="text-3xl font-bold text-primary capitalize">
           {userData?.name}
         </h1>
-        <p className="text-text-secondary mt-2">{userData?.email}</p>
+        <p className="text-secondary mt-2">{userData?.email}</p>
+        <p className="text-sm text-muted mt-1">
+          {/* <Clock className="inline w-4 h-4 text-accent mr-1" /> */}
+          Member since: {formatDate(userData?.createdAt)}
+        </p>
       </motion.div>
 
       {/* Mood Summary */}
@@ -81,7 +103,7 @@ function Profile() {
             <div className="bg-peach-300 p-3 rounded-lg text-center text-gray-900">
               😢 Sad
             </div>
-            <div className="bg-lavender-500 p-3 rounded-lg text-center text-white">
+            <div className="bg-lavender-500 p-3 rounded-lg text-center text-gray-900">
               😰 Stressed
             </div>
           </div>
