@@ -1,16 +1,26 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import authApi from "../../utils/firebase/auth/authApi";
+import { SmilePlus, User } from "lucide-react";
 
 function Nav() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleRouting = (route) => {
     navigate(route);
   };
 
-  console.log(user);
+  const handleLogoutClick = async () => {
+    try {
+      authApi.handleLogout();
+      handleRouting("/signin");
+    } catch (error) {
+      console.error("Error logging out: ", error);
+    }
+  };
 
   return (
     <>
@@ -24,20 +34,40 @@ function Nav() {
           </h2>
 
           {user ? (
-            <div className="space-x-4">
-              <button
-                className="px-6 py-2 rounded-lg bg-transparent border border-lavender-600 text-lavender-800 hover:bg-lavender-600 hover:text-white transition-all duration-200 font-bold"
-                onClick={() => handleRouting("/profile")}
-              >
-                Profile
-              </button>
-              <button
-                className="px-6 py-2 rounded-lg bg-lavender-600 text-white hover:bg-lavender-800 transition-all duration-200 font-bold"
-                onClick={() => handleRouting("/signin")}
-              >
-                Logout
-              </button>
-            </div>
+            <ul className="flex items-center space-x-4">
+              <li>
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 font-semibold transition-all duration-200 ${
+                    location.pathname === "/mood"
+                      ? "bg-lavender-100 text-lavender-800"
+                      : "text-lavender-800 hover:bg-lavender-100"
+                  }`}
+                  onClick={() => handleRouting("/mood")}
+                >
+                  <SmilePlus className="w-5 h-5" /> Mood Uplifter
+                </button>
+              </li>
+              <li>
+                <button
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 font-semibold transition-all duration-200 ${
+                    location.pathname === "/profile"
+                      ? "bg-lavender-100 text-lavender-800"
+                      : "text-lavender-800 hover:bg-lavender-100"
+                  }`}
+                  onClick={() => handleRouting("/profile")}
+                >
+                  <User className="w-5 h-5" /> Profile
+                </button>
+              </li>
+              <li>
+                <button
+                  className="px-6 py-2 rounded-lg bg-lavender-600 text-white hover:bg-lavender-800 transition-all duration-200 font-semibold"
+                  onClick={handleLogoutClick}
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
           ) : (
             <div className="space-x-4">
               <button

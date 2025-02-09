@@ -2,6 +2,7 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
   getFirestore,
   serverTimestamp,
   setDoc,
@@ -25,16 +26,25 @@ const saveMood = async (uid, data) => {
   });
 };
 
+const getUserData = async (uid) => {
+  try {
+    const userDocRef = doc(db, "user", uid);
+    const userDocSnap = await getDoc(userDocRef);
+    return userDocSnap.data();
+  } catch (error) {
+    return error;
+  }
+};
+
 const getTimeStamp = () => {
   return serverTimestamp();
 };
 
-const getCurrentUserId = () => {
-  const auth = getAuth();
-  const user = auth.currentUser;
-  return user ? user.uid : null;
+const firestoreApi = {
+  saveDoc,
+  saveMood,
+  getUserData,
+  getTimeStamp,
 };
-
-const firestoreApi = { saveDoc, saveMood, getTimeStamp, getCurrentUserId };
 
 export default firestoreApi;

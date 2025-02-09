@@ -22,7 +22,7 @@ function Authentication({ isSignUp = false }) {
     await firestoreApi.saveDoc(data?.user?.uid, {
       name: authData?.name,
       email: authData?.email,
-      signedUp: firestoreApi.getTimeStamp(),
+      createdAt: firestoreApi.getTimeStamp(),
     });
 
     navigate("/");
