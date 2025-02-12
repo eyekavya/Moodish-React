@@ -70,7 +70,7 @@ function MoodSelection() {
 
     const data = {
       mood: moodName,
-      moodTimeStamp: user?.uid,
+      moodTimeStamp: firestoreApi.getTimeStamp(),
     };
 
     await firestoreApi.saveMood(user?.uid, data);

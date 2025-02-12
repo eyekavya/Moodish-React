@@ -51,6 +51,12 @@ function Profile() {
     if (user?.uid) {
       firestoreApi.getMoodData(user.uid).then((moods) => console.log(moods));
     }
+
+    if (user?.uid) {
+      firestoreApi
+        .getTopMoodsThisWeek(user.uid)
+        .then((topMoods) => console.log(topMoods));
+    }
   }, [user]);
 
   if (loading) {
