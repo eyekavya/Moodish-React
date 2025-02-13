@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Sparkles, User, Calendar, BarChart, Loader2 } from "lucide-react";
 import firestoreApi from "../../utils/firebase/firestore/db";
 import { useAuth } from "../../hooks/useAuth";
+import MoodCalendar from "../MoodCalendar";
 
 function Profile() {
   const { user } = useAuth();
@@ -119,25 +120,8 @@ function Profile() {
         </div>
       </motion.div>
 
-      {/* Progress Tracking */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className="mt-8 w-full max-w-lg"
-      >
-        <div className="bg-white p-6 rounded-2xl shadow-md">
-          <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
-            <BarChart className="text-blue-500" /> Mood Progress
-          </h2>
-          <p className="text-text-secondary mt-2">
-            See how your mood has changed over time
-          </p>
-          <div className="mt-4 h-32 bg-lavender-100 rounded-lg flex items-center justify-center">
-            <p className="text-lavender-700">[Mood Graph Placeholder]</p>
-          </div>
-        </div>
-      </motion.div>
+      {/* Mood Calendar */}
+      <MoodCalendar />
 
       {/* Mood Tracking History */}
       <motion.div
