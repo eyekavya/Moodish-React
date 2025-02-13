@@ -66,22 +66,14 @@ const getMoodData = async (uid) => {
   }
 };
 
-const getTopMoodsThisWeek = async (uid) => {
+const getFrequentMoods = async (uid) => {
   if (!uid) {
     console.error("Error: UID is undefined. Cannot fetch moods.");
     return [];
   }
 
   try {
-    const moodRef = collection(db, "user", uid, "mood");
-    const moodSnap = await getDocs(moodRef);
-
-    if (moodSnap.empty) return [];
-
-    const moods = moodSnap.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const moods = await getMoodData(uid);
 
     // Get start of the week (Monday) and end of the week (Sunday)
     const now = new Date();
@@ -129,7 +121,7 @@ const firestoreApi = {
   saveMood,
   getUserData,
   getMoodData,
-  getTopMoodsThisWeek,
+  getFrequentMoods,
   getTimeStamp,
 };
 

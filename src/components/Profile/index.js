@@ -1,62 +1,60 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Sparkles,
-  Smile,
-  User,
-  Calendar,
-  BarChart,
-  Loader2,
-  Clock,
-} from "lucide-react";
+import { Sparkles, User, Calendar, BarChart, Loader2 } from "lucide-react";
 import firestoreApi from "../../utils/firebase/firestore/db";
 import { useAuth } from "../../hooks/useAuth";
 
 function Profile() {
   const { user } = useAuth();
   const [userData, setUserData] = useState(null);
+  const [moodData, setMoodData] = useState(null);
+  const [frequentMoods, setFrequentMoods] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  // const formatDate = (timestamp) => {
-  //   if (!timestamp) return "Unknown";
-  //   const date = new Date(timestamp);
-  //   return new Intl.DateTimeFormat("en-US", {
-  //     year: "numeric",
-  //     month: "long",
-  //     day: "numeric",
-  //   }).format(date);
-  // };
 
   const formatDate = (timestamp) => {
     if (!timestamp) return "N/A";
-    // Handle both Firestore Timestamps and regular Dates
     const date = timestamp?.toDate ? timestamp.toDate() : new Date(timestamp);
     return date.toLocaleDateString();
   };
 
+  async function fetchMoodData() {
+    if (!user?.uid) return;
+    try {
+      const data = await firestoreApi.getMoodData(user.uid);
+      setMoodData(data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  }
+
+  async function fetchFrequentMoods() {
+    if (!user?.uid) return;
+    try {
+      const data = await firestoreApi.getFrequentMoods(user.uid);
+
+      setFrequentMoods(data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  }
+
   useEffect(() => {
-    async function fetchData() {
-      if (!user?.uid) return;
+    async function fetchUserData() {
       setLoading(true);
+      if (!user?.uid) return;
       try {
         const data = await firestoreApi.getUserData(user.uid);
         setUserData(data);
+        fetchMoodData();
+        fetchFrequentMoods();
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
         setLoading(false);
       }
     }
-    fetchData();
-    if (user?.uid) {
-      firestoreApi.getMoodData(user.uid).then((moods) => console.log(moods));
-    }
-
-    if (user?.uid) {
-      firestoreApi
-        .getTopMoodsThisWeek(user.uid)
-        .then((topMoods) => console.log(topMoods));
-    }
+    fetchUserData();
   }, [user]);
 
   if (loading) {
@@ -105,16 +103,18 @@ function Profile() {
           <p className="text-text-secondary mt-2">
             Your most frequent moods this week
           </p>
+
+          {!frequentMoods && (
+            <p className="text-center mt-4 text-gray-900">
+              No moods selected this week
+            </p>
+          )}
           <div className="grid grid-cols-3 gap-4 mt-4">
-            <div className="bg-lavender-300 p-3 rounded-lg text-center text-gray-900">
-              😊 Happy
-            </div>
-            <div className="bg-peach-300 p-3 rounded-lg text-center text-gray-900">
-              😢 Sad
-            </div>
-            <div className="bg-lavender-500 p-3 rounded-lg text-center text-gray-900">
-              😰 Stressed
-            </div>
+            {frequentMoods?.map((e, i) => (
+              <div key={i} className="text-center text-gray-900">
+                {e.mood}
+              </div>
+            ))}
           </div>
         </div>
       </motion.div>
