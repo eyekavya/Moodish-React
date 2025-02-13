@@ -67,14 +67,13 @@ function MoodSelection() {
     setSuggestions("");
     setShowModal(true);
     setLoading(true);
-    const uid = firestoreApi.getCurrentUserId();
-    console.log(uid);
+
     const data = {
       mood: moodName,
-      moodTimeStamp: user?.uid,
+      moodTimeStamp: firestoreApi.getTimeStamp(),
     };
 
-    await firestoreApi.saveMood(uid, data);
+    await firestoreApi.saveMood(user?.uid, data);
 
     try {
       const result = await analyzeMood(moodName);

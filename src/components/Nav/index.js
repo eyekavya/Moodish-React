@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import authApi from "../../utils/firebase/auth/authApi";
 import { SmilePlus, User } from "lucide-react";
+import firestoreApi from "../../utils/firebase/firestore/db";
 
 function Nav() {
   const { user } = useAuth();
