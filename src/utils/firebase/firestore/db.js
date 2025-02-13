@@ -75,7 +75,7 @@ const getFrequentMoods = async (uid) => {
   try {
     const moods = await getMoodData(uid);
 
-    // Get start of the week (Monday) and end of the week (Sunday)
+    // start of the week (Monday) and end of the week (Sunday)
     const now = new Date();
     const startOfWeek = new Date(now);
     startOfWeek.setDate(now.getDate() - now.getDay() + 1); // Monday
@@ -98,12 +98,12 @@ const getFrequentMoods = async (uid) => {
     });
 
     // Sort by frequency and get top 3
-    const topMoods = Object.entries(moodCount)
+    const frequentMoods = Object.entries(moodCount)
       .sort((a, b) => b[1] - a[1]) // Sort by count (descending)
       .slice(0, 3) // Get top 3
       .map(([mood, count]) => ({ mood, count }));
 
-    return topMoods;
+    return frequentMoods;
   } catch (error) {
     console.error("Error fetching mood data:", error);
     return [];
