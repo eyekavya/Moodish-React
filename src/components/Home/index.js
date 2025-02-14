@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-lavender-200 to-peach-100 flex flex-col items-center justify-center px-6 text-center">
+    <div className="min-h-[calc(100vh-64px)] bg-gradient-to-b from-lavender-200 to-peach-100 flex flex-col items-center justify-center px-6 text-center">
       {/* Header */}
       <motion.h1
         className="text-5xl font-bold text-lavender-900 flex items-center gap-2"
