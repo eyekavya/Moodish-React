@@ -22,21 +22,6 @@ const MoodCalendar = () => {
     fetchMoodData();
   }, [user]);
 
-  const getMoodForDate = (date) => {
-    const moodEntry = moodData.find(
-      (m) =>
-        new Date(m.moodTimeStamp.toDate()).toDateString() ===
-        date.toDateString()
-    );
-
-    if (moodEntry) {
-      const moodParts = moodEntry.mood.split(" ");
-      return moodParts[moodParts.length - 1]; // Return only the last part (emoji)
-    }
-
-    return ""; // Return empty if no mood recorded
-  };
-
   const renderCalendar = () => {
     const today = new Date();
     const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -86,7 +71,7 @@ const MoodCalendar = () => {
       className="bg-white p-6 rounded-2xl shadow-md mt-8 w-full max-w-lg"
     >
       <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
-        <CalendarDays className="text-green-500" /> Mood Calendar
+        <CalendarDays className="text-blue-500" /> Mood Calendar
       </h2>
       <p className="text-text-secondary mt-2">
         Your mood throughout this month
@@ -94,11 +79,19 @@ const MoodCalendar = () => {
       <div className="grid grid-cols-7 gap-2 mt-4">{renderCalendar()}</div>
 
       {selectedMood && (
-        <div className="mt-4 p-4 bg-peach-100 rounded-lg">
-          <p className="text-lg font-semibold">
-            {selectedMood.date.toDateString()}
+        <div className="mt-4 p-4 bg-peach-100 rounded-lg shadow-md text-center">
+          <p className="text-base text-gray-600">
+            {selectedMood.date.toLocaleDateString("en-US", {
+              weekday: "short",
+              month: "short",
+              day: "2-digit",
+              year: "numeric",
+            })}
           </p>
-          <p className="text-xl">Mood: {selectedMood.mood}</p>
+
+          <p className="text-lg text-gray-800 mt-1">
+            Mood: <span>{selectedMood.mood}</span>
+          </p>
         </div>
       )}
     </motion.div>
