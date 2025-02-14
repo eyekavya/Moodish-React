@@ -28,7 +28,13 @@ const MoodCalendar = () => {
         new Date(m.moodTimeStamp.toDate()).toDateString() ===
         date.toDateString()
     );
-    return moodEntry ? moodEntry.mood.match(/\p{Emoji}/gu)?.[0] || "" : "";
+
+    if (moodEntry) {
+      const moodParts = moodEntry.mood.split(" ");
+      return moodParts[moodParts.length - 1]; // Return only the last part (emoji)
+    }
+
+    return ""; // Return empty if no mood recorded
   };
 
   const renderCalendar = () => {
@@ -45,17 +51,26 @@ const MoodCalendar = () => {
 
     for (let day = 1; day <= daysInMonth; day++) {
       const currentDate = new Date(today.getFullYear(), today.getMonth(), day);
-      const mood = getMoodForDate(currentDate);
+      const moodEntry = moodData.find(
+        (m) =>
+          new Date(m.moodTimeStamp.toDate()).toDateString() ===
+          currentDate.toDateString()
+      );
+
+      const moodText = moodEntry ? moodEntry.mood : ""; // Full mood (e.g., "Happy 😊")
+      const moodEmoji = moodText.split(" ").pop(); // Extract only the emoji
 
       days.push(
         <div
           key={day}
           className="h-12 w-12 flex items-center justify-center bg-lavender-100 rounded-lg cursor-pointer hover:bg-lavender-400 transition"
           onClick={() =>
-            setSelectedMood(mood ? { date: currentDate, mood } : null)
+            setSelectedMood(
+              moodEntry ? { date: currentDate, mood: moodText } : null
+            )
           }
         >
-          {mood || day}
+          {moodEntry ? moodEmoji : day}
         </div>
       );
     }
@@ -71,7 +86,7 @@ const MoodCalendar = () => {
       className="bg-white p-6 rounded-2xl shadow-md mt-8 w-full max-w-lg"
     >
       <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
-        <CalendarDays className="text-blue-500" /> Mood Calendar
+        <CalendarDays className="text-green-500" /> Mood Calendar
       </h2>
       <p className="text-text-secondary mt-2">
         Your mood throughout this month
