@@ -55,7 +55,7 @@ function MoodSelection() {
       const result = await analyzeMood(userMood);
       setSuggestions(result);
       setShowModal(true);
-      console.log("hi");
+      setUserMood("");
     } catch (error) {
       console.error("Error:", error);
     } finally {
