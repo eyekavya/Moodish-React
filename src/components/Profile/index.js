@@ -5,6 +5,7 @@ import { Sparkles, User, Calendar, BarChart, Loader2 } from "lucide-react";
 import firestoreApi from "../../utils/firebase/firestore/db";
 import { useAuth } from "../../hooks/useAuth";
 import MoodCalendar from "../MoodCalendar";
+import MoodHistory from "../MoodHistory";
 
 function Profile() {
   const { user } = useAuth();
@@ -124,7 +125,7 @@ function Profile() {
       <MoodCalendar />
 
       {/* Mood Tracking History */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6 }}
@@ -147,7 +148,8 @@ function Profile() {
             </li>
           </ul>
         </div>
-      </motion.div>
+      </motion.div> */}
+      <MoodHistory />
     </div>
   );
 }
