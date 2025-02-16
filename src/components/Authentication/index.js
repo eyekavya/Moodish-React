@@ -25,13 +25,13 @@ function Authentication({ isSignUp = false }) {
       createdAt: firestoreApi.getTimeStamp(),
     });
 
-    navigate("/");
+    navigate("/mood");
   }
 
   async function onClickSignIn() {
     const data = await authApi.signInWithEmailPassword(authData);
     console.log(data);
-    navigate("/");
+    navigate("/mood");
   }
 
   return (

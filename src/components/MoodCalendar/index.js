@@ -22,15 +22,6 @@ const MoodCalendar = () => {
     fetchMoodData();
   }, [user]);
 
-  const getMoodForDate = (date) => {
-    const moodEntry = moodData.find(
-      (m) =>
-        new Date(m.moodTimeStamp.toDate()).toDateString() ===
-        date.toDateString()
-    );
-    return moodEntry ? moodEntry.mood.match(/\p{Emoji}/gu)?.[0] || "" : "";
-  };
-
   const renderCalendar = () => {
     const today = new Date();
     const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -45,17 +36,26 @@ const MoodCalendar = () => {
 
     for (let day = 1; day <= daysInMonth; day++) {
       const currentDate = new Date(today.getFullYear(), today.getMonth(), day);
-      const mood = getMoodForDate(currentDate);
+      const moodEntry = moodData.find(
+        (m) =>
+          new Date(m.moodTimeStamp.toDate()).toDateString() ===
+          currentDate.toDateString()
+      );
+
+      const moodText = moodEntry ? moodEntry.mood : ""; // Full mood (e.g., "Happy 😊")
+      const moodEmoji = moodText.split(" ").pop(); // Extract only the emoji
 
       days.push(
         <div
           key={day}
           className="h-12 w-12 flex items-center justify-center bg-lavender-100 rounded-lg cursor-pointer hover:bg-lavender-400 transition"
           onClick={() =>
-            setSelectedMood(mood ? { date: currentDate, mood } : null)
+            setSelectedMood(
+              moodEntry ? { date: currentDate, mood: moodText } : null
+            )
           }
         >
-          {mood || day}
+          {moodEntry ? moodEmoji : day}
         </div>
       );
     }
@@ -79,11 +79,19 @@ const MoodCalendar = () => {
       <div className="grid grid-cols-7 gap-2 mt-4">{renderCalendar()}</div>
 
       {selectedMood && (
-        <div className="mt-4 p-4 bg-peach-100 rounded-lg">
-          <p className="text-lg font-semibold">
-            {selectedMood.date.toDateString()}
+        <div className="mt-4 p-4 bg-peach-100 rounded-lg shadow-md text-center">
+          <p className="text-base text-gray-600">
+            {selectedMood.date.toLocaleDateString("en-US", {
+              weekday: "short",
+              month: "short",
+              day: "2-digit",
+              year: "numeric",
+            })}
           </p>
-          <p className="text-xl">Mood: {selectedMood.mood}</p>
+
+          <p className="text-lg text-gray-800 mt-1">
+            Mood: <span>{selectedMood.mood}</span>
+          </p>
         </div>
       )}
     </motion.div>
