@@ -18,7 +18,6 @@ function Authentication({ isSignUp = false }) {
 
   async function onClickSignUp() {
     const data = await authApi.signUpWithEmailPassword(authData);
-    console.log(data);
     await firestoreApi.saveDoc(data?.user?.uid, {
       name: authData?.name,
       email: authData?.email,
@@ -30,7 +29,6 @@ function Authentication({ isSignUp = false }) {
 
   async function onClickSignIn() {
     const data = await authApi.signInWithEmailPassword(authData);
-    console.log(data);
     navigate("/mood");
   }
 

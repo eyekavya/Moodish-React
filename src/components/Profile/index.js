@@ -23,7 +23,6 @@ function Profile() {
     if (!user?.uid) return [];
     try {
       const data = await firestoreApi.getMoodData(user.uid);
-      console.log("Fetched mood data:", data);
       setMoodData(data);
       return data; // Return data for further use
     } catch (error) {
@@ -50,8 +49,6 @@ function Profile() {
       return moodDate && moodDate >= sevenDaysAgo;
     });
 
-    console.log("Moods from last 7 days:", recentMoods);
-
     if (recentMoods.length === 0) {
       setFrequentMoods([]);
       return;
@@ -73,7 +70,6 @@ function Profile() {
       .slice(0, 3)
       .map(([mood]) => ({ mood }));
 
-    console.log("Top 3 frequent moods:", sortedMoods);
     setFrequentMoods(sortedMoods);
   }
 
