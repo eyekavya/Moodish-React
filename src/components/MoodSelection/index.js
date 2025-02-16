@@ -68,16 +68,16 @@ function MoodSelection() {
     setShowModal(true);
     setLoading(true);
 
-    const data = {
-      mood: moodName,
-      moodTimeStamp: firestoreApi.getTimeStamp(),
-    };
-
-    await firestoreApi.saveMood(user?.uid, data);
-
     try {
       const result = await analyzeMood(moodName);
       setSuggestions(result);
+      const data = {
+        mood: moodName,
+        moodTimeStamp: firestoreApi.getTimeStamp(),
+        suggestion: result,
+      };
+
+      await firestoreApi.saveMood(user?.uid, data);
     } catch (error) {
       console.error("Error:", error);
     } finally {

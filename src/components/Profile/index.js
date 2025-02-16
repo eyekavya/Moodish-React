@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, User, Calendar, BarChart, Loader2 } from "lucide-react";
+import { Sparkles, User, Loader2 } from "lucide-react";
 import firestoreApi from "../../utils/firebase/firestore/db";
 import { useAuth } from "../../hooks/useAuth";
 import MoodCalendar from "../MoodCalendar";
@@ -21,24 +20,57 @@ function Profile() {
   };
 
   async function fetchMoodData() {
-    if (!user?.uid) return;
+    if (!user?.uid) return [];
     try {
       const data = await firestoreApi.getMoodData(user.uid);
       setMoodData(data);
+      return data; // Return data for further use
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      console.error("Error fetching mood data:", error);
+      return [];
     }
   }
 
-  async function fetchFrequentMoods() {
-    if (!user?.uid) return;
-    try {
-      const data = await firestoreApi.getFrequentMoods(user.uid);
-
-      setFrequentMoods(data);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
+  function fetchFrequentMoods(moods) {
+    if (!moods || moods.length === 0) {
+      setFrequentMoods([]);
+      return;
     }
+
+    // Get timestamp for 7 days ago
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    // Filter moods from the last 7 days
+    const recentMoods = moods.filter((m) => {
+      const moodDate = m.moodTimeStamp?.toDate
+        ? m.moodTimeStamp.toDate()
+        : null;
+      return moodDate && moodDate >= sevenDaysAgo;
+    });
+
+    if (recentMoods.length === 0) {
+      setFrequentMoods([]);
+      return;
+    }
+
+    // Count occurrences of each mood
+    const moodCount = {};
+    recentMoods.forEach((m) => {
+      if (moodCount[m.mood]) {
+        moodCount[m.mood]++;
+      } else {
+        moodCount[m.mood] = 1;
+      }
+    });
+
+    // Sort moods by frequency and take the top 3
+    const sortedMoods = Object.entries(moodCount)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([mood]) => ({ mood }));
+
+    setFrequentMoods(sortedMoods);
   }
 
   useEffect(() => {
@@ -48,8 +80,8 @@ function Profile() {
       try {
         const data = await firestoreApi.getUserData(user.uid);
         setUserData(data);
-        fetchMoodData();
-        fetchFrequentMoods();
+        const moods = await fetchMoodData(); // Fetch moods and wait
+        fetchFrequentMoods(moods); // Call fetchFrequentMoods after moods are available
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -86,12 +118,11 @@ function Profile() {
         </h1>
         <p className="text-secondary mt-2">{userData?.email}</p>
         <p className="text-sm text-muted mt-1">
-          {/* <Clock className="inline w-4 h-4 text-accent mr-1" /> */}
           Member since: {formatDate(userData?.createdAt)}
         </p>
       </motion.div>
 
-      {/* Mood Summary */}
+      {/* Frequent Mood */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -100,24 +131,25 @@ function Profile() {
       >
         <div className="bg-white p-6 rounded-2xl shadow-md">
           <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
-            <Sparkles className="text-yellow-500" /> Mood Overview
+            <Sparkles className="text-yellow-500" /> Mood Insights
           </h2>
           <p className="text-text-secondary mt-2">
-            Your most frequent moods this week
+            Most logged moods over the past 7 days
           </p>
 
-          {!frequentMoods && (
+          {!frequentMoods || frequentMoods.length === 0 ? (
             <p className="text-center mt-4 text-gray-900">
               No moods selected this week
             </p>
+          ) : (
+            <div className="grid grid-cols-3 gap-4 mt-4">
+              {frequentMoods.map((e, i) => (
+                <div key={i} className="text-center text-gray-900">
+                  {e.mood}
+                </div>
+              ))}
+            </div>
           )}
-          <div className="grid grid-cols-3 gap-4 mt-4">
-            {frequentMoods?.map((e, i) => (
-              <div key={i} className="text-center text-gray-900">
-                {e.mood}
-              </div>
-            ))}
-          </div>
         </div>
       </motion.div>
 

@@ -18,7 +18,6 @@ function Authentication({ isSignUp = false }) {
 
   async function onClickSignUp() {
     const data = await authApi.signUpWithEmailPassword(authData);
-    console.log(data);
     await firestoreApi.saveDoc(data?.user?.uid, {
       name: authData?.name,
       email: authData?.email,
@@ -30,7 +29,6 @@ function Authentication({ isSignUp = false }) {
 
   async function onClickSignIn() {
     const data = await authApi.signInWithEmailPassword(authData);
-    console.log(data);
     navigate("/mood");
   }
 
@@ -50,6 +48,10 @@ function Authentication({ isSignUp = false }) {
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
                 onChange={onChangeInput}
                 value={authData.name}
+                onKeyDown={(e) =>
+                  e.key === "Enter" &&
+                  (isSignUp ? onClickSignUp() : onClickSignIn())
+                }
               />
             )}
             <input
@@ -59,6 +61,10 @@ function Authentication({ isSignUp = false }) {
               value={authData.email}
               onChange={onChangeInput}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
+              onKeyDown={(e) =>
+                e.key === "Enter" &&
+                (isSignUp ? onClickSignUp() : onClickSignIn())
+              }
             />
             <input
               type="password"
@@ -67,6 +73,10 @@ function Authentication({ isSignUp = false }) {
               value={authData.password}
               onChange={onChangeInput}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
+              onKeyDown={(e) =>
+                e.key === "Enter" &&
+                (isSignUp ? onClickSignUp() : onClickSignIn())
+              }
             />
 
             <button
