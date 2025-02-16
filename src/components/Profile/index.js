@@ -125,30 +125,6 @@ function Profile() {
       <MoodCalendar />
 
       {/* Mood Tracking History */}
-      {/* <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-        className="mt-8 w-full max-w-lg"
-      >
-        <div className="bg-white p-6 rounded-2xl shadow-md">
-          <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
-            <Calendar className="text-green-500" /> Mood History
-          </h2>
-          <p className="text-text-secondary mt-2">Your latest mood logs</p>
-          <ul className="mt-4 space-y-2">
-            <li className="bg-lavender-200 p-3 rounded-lg">
-              😊 Feeling great - 2 hours ago
-            </li>
-            <li className="bg-peach-200 p-3 rounded-lg">
-              😰 Stressed - Yesterday
-            </li>
-            <li className="bg-lavender-300 p-3 rounded-lg">
-              🥱 Tired - 3 days ago
-            </li>
-          </ul>
-        </div>
-      </motion.div> */}
       <MoodHistory />
     </div>
   );
