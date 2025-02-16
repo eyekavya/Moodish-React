@@ -9,9 +9,10 @@ export const analyzeMood = async (mood) => {
   const prompt = `
     I'm building an app to help users enhance their mood.  
     The user has shared their mood as "${mood}".  
-    Please provide a list of 5 specific, actionable points that can help improve their current state of mind.  But avoid writing any more extra point except the required points.
+    Please provide exactly 5 specific, actionable points that can help improve their current state of mind.  
 
-    For each point:  
+    Instructions:  
+    - Do not include any introduction or summary—only the 5 points.  
     - The first point should include a brief empathetic acknowledgment. The rest should go straight to the action unless necessary.  
     - Keep each suggestion clear, practical, and immediately doable.  
     - Each point should be 2-3 lines long.  
@@ -20,7 +21,7 @@ export const analyzeMood = async (mood) => {
     - Format each point with a bullet point (•).  
     - No special characters or bold formatting.  
 
-    Keep the tone warm and supportive, but focus on concrete actions rather than just emotional comfort.
+    Only return the list of 5 points. No extra text.
   `.trim();
 
   try {
