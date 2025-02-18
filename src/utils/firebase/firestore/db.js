@@ -9,6 +9,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { app } from "..";
+import { toast } from "sonner";
 
 // Initialize Firestore
 const db = getFirestore(app);
@@ -19,6 +20,7 @@ const saveDoc = async (uid, data) => {
   // Create a reference to the user document
   const userDocRef = doc(db, "user", uid);
   return await setDoc(userDocRef, data).catch((error) => {
+    toast.error(error.message);
     return error;
   });
 };
@@ -28,6 +30,7 @@ const saveMood = async (uid, data) => {
   const moodRef = collection(db, "user", uid, "mood");
   // Add a new document with a generated ID
   return await addDoc(moodRef, data).catch((error) => {
+    toast.error(error.message);
     return error;
   });
 };
@@ -39,6 +42,7 @@ const getUserData = async (uid) => {
     const userDocSnap = await getDoc(userDocRef);
     return userDocSnap.data();
   } catch (error) {
+    toast.error(error.message);
     return error;
   }
 };
@@ -46,7 +50,7 @@ const getUserData = async (uid) => {
 // Get user's mood data from Firestore
 const getMoodData = async (uid) => {
   if (!uid) {
-    console.error("Error: UID is undefined. Cannot fetch moods.");
+    toast.error("UID is undefined. Cannot fetch moods.");
     return [];
   }
   try {
@@ -62,6 +66,7 @@ const getMoodData = async (uid) => {
       return [];
     }
   } catch (error) {
+    toast.error(error.message);
     return error;
   }
 };

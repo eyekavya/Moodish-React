@@ -3,6 +3,7 @@ import firestoreApi from "../../utils/firebase/firestore/db";
 import { useAuth } from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import { CalendarDays } from "lucide-react";
+import { toast } from "sonner";
 
 const MoodCalendar = () => {
   const { user } = useAuth();
@@ -16,7 +17,7 @@ const MoodCalendar = () => {
         const data = await firestoreApi.getMoodData(user.uid);
         setMoodData(data);
       } catch (error) {
-        console.error("Error fetching mood data:", error);
+        toast.error(error.message);
       }
     }
     fetchMoodData();

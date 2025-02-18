@@ -4,6 +4,7 @@ import { useAuth } from "../../hooks/useAuth";
 import authApi from "../../utils/firebase/auth/authApi";
 import { SmilePlus, User } from "lucide-react";
 import firestoreApi from "../../utils/firebase/firestore/db";
+import { toast } from "sonner";
 
 function Nav() {
   const { user } = useAuth();
@@ -19,7 +20,7 @@ function Nav() {
       authApi.handleLogout();
       handleRouting("/signin");
     } catch (error) {
-      console.error("Error logging out: ", error);
+      toast.error(error.message);
     }
   };
 
