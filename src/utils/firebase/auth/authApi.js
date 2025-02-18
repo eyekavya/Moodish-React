@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { app } from "..";
+import { toast } from "sonner";
 
 const auth = getAuth(app);
 
@@ -17,7 +18,7 @@ async function signUpWithEmailPassword(signUpData) {
     signUpData.email,
     signUpData.password
   ).catch((error) => {
-    return error;
+    toast.error("error.message");
   });
 }
 
@@ -27,7 +28,7 @@ async function signInWithEmailPassword(signInData) {
     signInData.email,
     signInData.password
   ).catch((error) => {
-    return error;
+    toast.error("error.message");
   });
 }
 

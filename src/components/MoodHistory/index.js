@@ -3,6 +3,7 @@ import firestoreApi from "../../utils/firebase/firestore/db";
 import { useAuth } from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import { Calendar } from "lucide-react";
+import { toast } from "sonner";
 
 const MoodHistory = () => {
   const { user } = useAuth();
@@ -18,7 +19,7 @@ const MoodHistory = () => {
         );
         setMoodHistory(sortedMoods);
       } catch (error) {
-        console.error("Error fetching mood history:", error);
+        toast.error(error.message);
       }
     }
     fetchMoodHistory();

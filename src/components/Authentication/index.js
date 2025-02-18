@@ -29,7 +29,10 @@ function Authentication({ isSignUp = false }) {
 
   async function onClickSignIn() {
     const data = await authApi.signInWithEmailPassword(authData);
-    navigate("/mood");
+
+    if (data?.user) {
+      navigate("/mood");
+    }
   }
 
   return (

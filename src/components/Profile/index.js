@@ -5,6 +5,7 @@ import firestoreApi from "../../utils/firebase/firestore/db";
 import { useAuth } from "../../hooks/useAuth";
 import MoodCalendar from "../MoodCalendar";
 import MoodHistory from "../MoodHistory";
+import { toast } from "sonner";
 
 function Profile() {
   const { user } = useAuth();
@@ -22,10 +23,9 @@ function Profile() {
     if (!user?.uid) return [];
     try {
       const data = await firestoreApi.getMoodData(user.uid);
-
-      return data; // Return data for further use
+      return data;
     } catch (error) {
-      console.error("Error fetching mood data:", error);
+      toast.error(error.message);
       return [];
     }
   }
@@ -82,7 +82,7 @@ function Profile() {
         const moods = await fetchMoodData(); // Fetch moods and wait
         fetchFrequentMoods(moods); // Call fetchFrequentMoods after moods are available
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        toast.error(error.message);
       } finally {
         setLoading(false);
       }

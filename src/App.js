@@ -6,11 +6,13 @@ import SignIn from "./pages/signIn";
 import MoodSelection from "./components/MoodSelection";
 import Nav from "./components/Nav";
 import Profile from "./components/Profile";
+import { Toaster } from "sonner";
 
 function App() {
   return (
     <>
       <div>
+        <Toaster richColors />
         <Router>
           <Nav />
           <Routes>

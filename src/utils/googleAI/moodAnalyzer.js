@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { toast } from "sonner";
 
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 const genAI = new GoogleGenerativeAI(GOOGLE_API_KEY);
@@ -31,7 +32,7 @@ export const analyzeMood = async (mood) => {
 
     return text;
   } catch (error) {
-    console.error("Error with Google Generative AI:", error);
+    toast.error(error.message);
     throw error;
   }
 };

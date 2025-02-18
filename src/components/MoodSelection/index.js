@@ -4,6 +4,7 @@ import { Loader2, Send } from "lucide-react";
 import firestoreApi from "../../utils/firebase/firestore/db";
 import { useAuth } from "../../hooks/useAuth";
 import SuggestionModal from "../SuggestionModal";
+import { toast } from "sonner";
 
 function MoodSelection() {
   const { user } = useAuth();
@@ -58,7 +59,7 @@ function MoodSelection() {
       setShowModal(true);
       setUserMood("");
     } catch (error) {
-      console.error("Error:", error);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -80,7 +81,7 @@ function MoodSelection() {
 
       await firestoreApi.saveMood(user?.uid, data);
     } catch (error) {
-      console.error("Error:", error);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
