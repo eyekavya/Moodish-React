@@ -9,7 +9,6 @@ import MoodHistory from "../MoodHistory";
 function Profile() {
   const { user } = useAuth();
   const [userData, setUserData] = useState(null);
-  const [moodData, setMoodData] = useState(null);
   const [frequentMoods, setFrequentMoods] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -23,7 +22,7 @@ function Profile() {
     if (!user?.uid) return [];
     try {
       const data = await firestoreApi.getMoodData(user.uid);
-      setMoodData(data);
+
       return data; // Return data for further use
     } catch (error) {
       console.error("Error fetching mood data:", error);
