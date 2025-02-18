@@ -18,7 +18,7 @@ async function signUpWithEmailPassword(signUpData) {
     signUpData.email,
     signUpData.password
   ).catch((error) => {
-    toast.error("error.message");
+    toast.error(error.message);
   });
 }
 
