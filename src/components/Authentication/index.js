@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 import authApi from "../../utils/firebase/auth/authApi";
 import firestoreApi from "../../utils/firebase/firestore/db";
 import { toast } from "sonner";
@@ -12,6 +13,8 @@ function Authentication({ isSignUp = false }) {
     email: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   function onChangeInput(e) {
     setAuthData({ ...authData, [e.target.name]: e.target.value });
@@ -72,21 +75,29 @@ function Authentication({ isSignUp = false }) {
             )}
             <input
               type="email"
-              placeholder="Enter your Email"
+              placeholder="Enter Email"
               name="email"
               value={authData.email}
               onChange={onChangeInput}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
             />
-            <input
-              type="password"
-              placeholder="Enter password"
-              name="password"
-              value={authData.password}
-              onChange={onChangeInput}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
-            />
-
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter password"
+                name="password"
+                value={authData.password}
+                onChange={onChangeInput}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600 pr-10"
+              />
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 active:text-gray-600 transition"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
             <button
               className="w-full bg-lavender-600 text-white py-3 rounded-lg hover:bg-lavender-800 transition-all duration-200 font-bold"
               onClick={isSignUp ? onClickSignUp : onClickSignIn}
