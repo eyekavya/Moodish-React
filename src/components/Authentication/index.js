@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authApi from "../../utils/firebase/auth/authApi";
 import firestoreApi from "../../utils/firebase/firestore/db";
+import { toast } from "sonner";
 
 function Authentication({ isSignUp = false }) {
   const navigate = useNavigate();
@@ -16,20 +17,36 @@ function Authentication({ isSignUp = false }) {
     setAuthData({ ...authData, [e.target.name]: e.target.value });
   }
 
+  function validateInputs() {
+    if (isSignUp && authData.name.length < 3) {
+      toast.error("Name should be at least 3 characters long");
+      return false;
+    }
+    if (!authData.email.includes("@")) {
+      toast.error("Please enter a valid email address");
+      return false;
+    }
+    if (authData.password.length < 6) {
+      toast.error("Password should be at least 6 characters long");
+      return false;
+    }
+    return true;
+  }
+
   async function onClickSignUp() {
+    if (!validateInputs()) return;
     const data = await authApi.signUpWithEmailPassword(authData);
     await firestoreApi.saveDoc(data?.user?.uid, {
       name: authData?.name,
       email: authData?.email,
       createdAt: firestoreApi.getTimeStamp(),
     });
-
     navigate("/mood");
   }
 
   async function onClickSignIn() {
+    if (!validateInputs()) return;
     const data = await authApi.signInWithEmailPassword(authData);
-
     if (data?.user) {
       navigate("/mood");
     }
@@ -47,44 +64,31 @@ function Authentication({ isSignUp = false }) {
               <input
                 type="text"
                 name="name"
-                placeholder="Name"
+                placeholder="Enter Name"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
                 onChange={onChangeInput}
                 value={authData.name}
-                onKeyDown={(e) =>
-                  e.key === "Enter" &&
-                  (isSignUp ? onClickSignUp() : onClickSignIn())
-                }
               />
             )}
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Enter your Email"
               name="email"
               value={authData.email}
               onChange={onChangeInput}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
-              onKeyDown={(e) =>
-                e.key === "Enter" &&
-                (isSignUp ? onClickSignUp() : onClickSignIn())
-              }
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Enter password"
               name="password"
               value={authData.password}
               onChange={onChangeInput}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
-              onKeyDown={(e) =>
-                e.key === "Enter" &&
-                (isSignUp ? onClickSignUp() : onClickSignIn())
-              }
             />
 
             <button
-              className="w-full bg-lavender-600 text-white py-3 rounded-lg hover:bg-lavender-800 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-lavender-400"
-              disabled={false}
+              className="w-full bg-lavender-600 text-white py-3 rounded-lg hover:bg-lavender-800 transition-all duration-200 font-bold"
               onClick={isSignUp ? onClickSignUp : onClickSignIn}
             >
               {isSignUp ? "Sign Up" : "Sign In"}
