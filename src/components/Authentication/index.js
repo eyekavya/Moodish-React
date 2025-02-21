@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, X } from "lucide-react";
 import authApi from "../../utils/firebase/auth/authApi";
 import firestoreApi from "../../utils/firebase/firestore/db";
 import { toast } from "sonner";
@@ -137,7 +137,13 @@ function Authentication({ isSignUp = false }) {
       </div>
       {isForgotPasswordModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-sm">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+            <button
+              className="absolute top-3 right-3 text-gray-600 hover:text-gray-800"
+              onClick={() => setForgotPasswordModalOpen(false)}
+            >
+              <X size={24} />
+            </button>
             <h2 className="text-xl font-bold text-center text-lavender-800 mb-4">
               Reset Password
             </h2>
@@ -148,15 +154,9 @@ function Authentication({ isSignUp = false }) {
               onChange={(e) => setResetEmail(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none border-2 focus:border-lavender-600"
             />
-            <div className="flex justify-end mt-4 space-x-2">
+            <div className="mt-6 flex justify-center">
               <button
-                className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
-                onClick={() => setForgotPasswordModalOpen(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-lavender-600 text-white rounded-lg hover:bg-lavender-800"
+                className="px-6 py-2 bg-lavender-600 text-white rounded-lg hover:bg-lavender-800"
                 onClick={onResetPassword}
               >
                 Submit
