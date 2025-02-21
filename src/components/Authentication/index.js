@@ -61,9 +61,14 @@ function Authentication({ isSignUp = false }) {
       toast.error("Please enter a valid email");
       return;
     }
-    await authApi.resetPassword(resetEmail);
-    toast.success("Password reset link sent to your email");
-    setForgotPasswordModalOpen(false);
+    try {
+      await authApi.resetPassword(resetEmail);
+      toast.success("Password reset link sent to your email");
+      setForgotPasswordModalOpen(false);
+      setResetEmail("");
+    } catch (error) {
+      toast.error("Failed to send password reset link. Please try again.");
+    }
   }
 
   return (

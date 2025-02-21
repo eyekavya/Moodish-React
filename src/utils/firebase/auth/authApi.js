@@ -50,6 +50,7 @@ const authApi = {
   signUpWithEmailPassword,
   signInWithEmailPassword,
   handleLogout,
+  resetPassword,
 };
 
 export default authApi;
