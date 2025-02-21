@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { app } from "..";
@@ -36,10 +37,20 @@ const handleLogout = async () => {
   return await auth.signOut();
 };
 
+export async function resetPassword(email) {
+  try {
+    await sendPasswordResetEmail(auth, email);
+  } catch (error) {
+    console.error("Error sending password reset email:", error);
+    throw error;
+  }
+}
+
 const authApi = {
   signUpWithEmailPassword,
   signInWithEmailPassword,
   handleLogout,
+  resetPassword,
 };
 
 export default authApi;
