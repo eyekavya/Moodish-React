@@ -7,6 +7,7 @@ import MoodSelection from "./components/MoodSelection";
 import Nav from "./components/Nav";
 import Profile from "./components/Profile";
 import { Toaster } from "sonner";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -19,8 +20,22 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/mood" element={<MoodSelection />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/mood"
+              element={
+                <ProtectedRoute>
+                  <MoodSelection />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </Router>
       </div>
