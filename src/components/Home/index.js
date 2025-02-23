@@ -9,10 +9,20 @@ import {
   Lightbulb,
   Moon,
   Wind,
+  Brain,
+  Bed,
+  Activity,
+  Footprints,
+  Timer,
+  TimerIcon,
+  Award,
+  Trophy,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Home() {
+  const { user } = useAuth();
   return (
     <div className="bg-gradient-to-b from-lavender-200 to-peach-100 min-h-screen">
       {/* Hero Section */}
@@ -70,7 +80,7 @@ export default function Home() {
               title: "Track Your Mood Over Time",
               description:
                 "Monitor patterns in your emotions and improve self-awareness.",
-              icon: <Moon className="w-8 h-8 text-lavender-800" />,
+              icon: <Timer className="w-8 h-8 text-lavender-800" />,
             },
             {
               title: "Swipe for Positivity",
@@ -80,7 +90,7 @@ export default function Home() {
             {
               title: "Engaging Mood Challenges",
               description: "Try interactive activities to boost your mindset.",
-              icon: <Wind className="w-8 h-8 text-lavender-800" />,
+              icon: <Trophy className="w-8 h-8 text-lavender-800" />,
             },
           ].map((feature, index) => (
             <motion.div
@@ -102,17 +112,19 @@ export default function Home() {
         </div>
         <div className="mt-14 flex flex-col items-center">
           <Link
-            to="/signup"
+            to={user ? "/mood" : "/signup"}
             className="w-fit px-4 py-2 bg-lavender-600 text-white text-lg font-semibold rounded-full shadow-lg hover:bg-lavender-800 transition-all flex items-center gap-2"
           >
             Get Started <ArrowRight className="w-6 h-8" />
           </Link>
-          <p className="mt-4 text-gray-600">
-            Already have an account?{" "}
-            <Link to="/signin" className="text-lavender-800 hover:underline">
-              Sign in
-            </Link>
-          </p>
+          {!user && (
+            <p className="mt-4 text-gray-600">
+              Already have an account?{" "}
+              <Link to="/signin" className="text-lavender-800 hover:underline">
+                Sign in
+              </Link>
+            </p>
+          )}
         </div>
       </section>
 
@@ -127,26 +139,27 @@ export default function Home() {
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {[
             {
-              title: "Water Properly",
+              title: "Practice Mindfulness",
               description:
-                "Stay hydrated to improve mental clarity and well-being.",
+                "Breathe deeply and focus on the present to ease stress.",
+              icon: <Brain className="w-8 h-8 text-lavender-800" />,
+            },
+            {
+              title: "Stay Hydrated",
+              description: "Drink enough water to stay focused and energized.",
               icon: <Droplet className="w-8 h-8 text-lavender-800" />,
             },
             {
-              title: "Provide Light",
-              description: "Sunlight helps regulate mood and energy levels.",
-              icon: <Lightbulb className="w-8 h-8 text-lavender-800" />,
-            },
-            {
-              title: "Control Temperature",
+              title: "Prioritize Sleep",
               description:
-                "A comfortable environment supports relaxation and focus.",
-              icon: <Moon className="w-8 h-8 text-lavender-800" />,
+                "Stick to a routine and limit screen time before bed.",
+              icon: <Bed className="w-8 h-8 text-lavender-800" />,
             },
             {
-              title: "Ensure Air Flow",
-              description: "Fresh air can boost mood and reduce stress.",
-              icon: <Wind className="w-8 h-8 text-lavender-800" />,
+              title: "Move Your Body",
+              description:
+                "A short walk or stretch can boost your mood instantly.",
+              icon: <Footprints className="w-8 h-8 text-lavender-800" />,
             },
           ].map((tip, index) => (
             <motion.div
