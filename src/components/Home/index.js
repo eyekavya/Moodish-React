@@ -7,15 +7,10 @@ import {
   ArrowRight,
   Droplet,
   Lightbulb,
-  Moon,
-  Wind,
   Brain,
   Bed,
-  Activity,
   Footprints,
   Timer,
-  TimerIcon,
-  Award,
   Trophy,
 } from "lucide-react";
 import { motion } from "framer-motion";
