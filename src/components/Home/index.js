@@ -34,12 +34,9 @@ export default function Home() {
           transition={{ duration: 0.8 }}
         >
           <span className="text-text-contrast">Understand & Elevate Your</span>
-          <span
-            className="flex items-center gap-2 text-lavender-600"
-            style={{ color: "#bd776e" }}
-          >
+          <span className="flex items-center gap-2 text-lavender-600">
             Mood Effortlessly{" "}
-            <Sparkles className="w-8 h-8 text-yellow-500 animate-pulse" />
+            <Sparkles className="w-12 h-12 text-lavendar-600 animate-pulse" />
           </span>
         </motion.h1>
 
