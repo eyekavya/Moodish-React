@@ -11,7 +11,7 @@ const MoodCalendar = () => {
   const [selectedMood, setSelectedMood] = useState(null);
 
   useEffect(() => {
-    async function fetchMoodData() {
+    const fetchMoodData = async () => {
       if (!user?.uid) return;
       try {
         const data = await firestoreApi.getMoodData(user.uid);
@@ -19,9 +19,21 @@ const MoodCalendar = () => {
       } catch (error) {
         toast.error(error.message);
       }
-    }
+    };
     fetchMoodData();
   }, [user]);
+
+  const getMoodForDate = (currentDate) => {
+    const moodEntry = moodData
+      .filter(
+        (m) =>
+          new Date(m.moodTimeStamp.toDate()).toDateString() ===
+          currentDate.toDateString()
+      )
+      .sort((a, b) => b.moodTimeStamp.toDate() - a.moodTimeStamp.toDate())[0];
+
+    return moodEntry ? moodEntry.mood : null;
+  };
 
   const renderCalendar = () => {
     const today = new Date();
@@ -37,26 +49,23 @@ const MoodCalendar = () => {
 
     for (let day = 1; day <= daysInMonth; day++) {
       const currentDate = new Date(today.getFullYear(), today.getMonth(), day);
-      const moodEntry = moodData.find(
-        (m) =>
-          new Date(m.moodTimeStamp.toDate()).toDateString() ===
-          currentDate.toDateString()
-      );
-
-      const moodText = moodEntry ? moodEntry.mood : ""; // Full mood (e.g., "Happy 😊")
-      const moodEmoji = moodText.split(" ").pop(); // Extract only the emoji
+      const moodText = getMoodForDate(currentDate);
+      const moodEmoji = moodText ? moodText.split(" ").pop() : "💤";
 
       days.push(
         <div
           key={day}
           className="h-12 w-12 flex items-center justify-center bg-lavender-100 rounded-lg cursor-pointer hover:bg-lavender-400 transition"
           onClick={() =>
-            setSelectedMood(
-              moodEntry ? { date: currentDate, mood: moodText } : null
-            )
+            setSelectedMood({
+              date: currentDate,
+              mood:
+                moodText ||
+                "No mood logged… were you too busy being awesome? 😎",
+            })
           }
         >
-          {moodEntry ? moodEmoji : day}
+          {moodText ? moodEmoji : day}
         </div>
       );
     }
@@ -79,22 +88,28 @@ const MoodCalendar = () => {
       </p>
       <div className="grid grid-cols-7 gap-2 mt-4">{renderCalendar()}</div>
 
-      {selectedMood && (
-        <div className="mt-4 p-4 bg-peach-100 rounded-lg shadow-md text-center">
-          <p className="text-base text-gray-600">
-            {selectedMood.date.toLocaleDateString("en-US", {
-              weekday: "short",
-              month: "short",
-              day: "2-digit",
-              year: "numeric",
-            })}
-          </p>
-
-          <p className="text-lg text-gray-800 mt-1">
-            Mood: <span>{selectedMood.mood}</span>
-          </p>
-        </div>
-      )}
+      {/* Fixed Height for Mood Display */}
+      <div className="mt-4 p-4 bg-peach-100 rounded-lg shadow-md text-center h-[100px] flex flex-col justify-center">
+        {selectedMood ? (
+          <>
+            <p className="text-base text-gray-600">
+              {selectedMood.date.toLocaleDateString("en-US", {
+                weekday: "short",
+                month: "short",
+                day: "2-digit",
+                year: "numeric",
+              })}
+            </p>
+            <p className="text-lg text-gray-800 mt-1">
+              {selectedMood.mood.includes("No mood logged")
+                ? selectedMood.mood
+                : `Mood: ${selectedMood.mood}`}
+            </p>
+          </>
+        ) : (
+          <p className="text-gray-500">Select a date to view your mood</p>
+        )}
+      </div>
     </motion.div>
   );
 };
