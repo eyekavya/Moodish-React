@@ -26,25 +26,37 @@ export default function Home() {
   return (
     <div className="bg-gradient-to-b from-lavender-200 to-peach-100 min-h-screen">
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center h-screen px-6">
+      <section className="flex flex-col items-center justify-center text-center h-[calc(100vh-64px)] px-6">
         <motion.h1
-          className="text-5xl font-bold text-lavender-900 flex items-center gap-2"
+          className="text-7xl font-bold text-lavender-900 flex flex-col items-center gap-2 text-center"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Welcome to Moodish{" "}
-          <Sparkles className="w-8 h-8 text-yellow-500 animate-pulse" />
+          <span className="text-text-contrast">Understand & Elevate Your</span>
+          <span
+            className="flex items-center gap-2 text-lavender-600"
+            style={{ color: "#bd776e" }}
+          >
+            Mood Effortlessly{" "}
+            <Sparkles className="w-8 h-8 text-yellow-500 animate-pulse" />
+          </span>
         </motion.h1>
+
         <motion.p
-          className="text-lg text-gray-700 mt-4 max-w-xl"
+          className="text-2xl text-gray-700 mt-8 text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          AI-powered mood booster! Select how you feel and get personalized ways
-          to brighten your day. 😊
+          <span>
+            Select how you're feeling, and our AI will provide personalized
+            activities, insights, and
+          </span>
+          <br />
+          <span>uplifting content to help you feel your best in seconds.</span>
         </motion.p>
+
         <motion.div
           className="mt-6"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -53,7 +65,7 @@ export default function Home() {
         >
           <Link
             to="/mood"
-            className="px-6 py-3 bg-lavender-600 text-white text-lg font-semibold rounded-full shadow-lg hover:bg-lavender-800 transition-all flex items-center gap-2"
+            className="px-6 py-3 mt-8 bg-lavender-600 text-white text-lg font-semibold rounded-full shadow-lg hover:bg-lavender-800 transition-all flex items-center gap-2"
           >
             Start Your Mood Journey <Smile className="w-6 h-6" />
           </Link>
@@ -62,13 +74,14 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="py-16 px-6 text-center">
-        <h2 className="text-3xl font-bold text-lavender-900">
-          Discover Moodish
+        <h2 className="text-4xl font-bold text-lavender-900">
+          Unlock a Happier Life
         </h2>
-        <p className="text-gray-600 mt-2">
-          AI-powered suggestions tailored to your mood.
+        <p className="text-gray-600 text-xl mt-2">
+          Get AI-driven suggestions to boost your mood, reduce stress, and stay
+          motivated.
         </p>
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {[
             {
               title: "Personalized Mood Suggestions",
@@ -104,9 +117,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold text-lavender-800 mt-3">
                 {feature.title}
               </h3>
-              <p className="text-gray-600 text-sm mt-2">
-                {feature.description}
-              </p>
+              <p className="text-gray-600 text-m mt-2">{feature.description}</p>
             </motion.div>
           ))}
         </div>
@@ -130,13 +141,13 @@ export default function Home() {
 
       {/* Mental Health Tips */}
       <section className="py-16 px-6 text-center">
-        <h2 className="text-3xl font-bold text-lavender-900">
+        <h2 className="text-4xl font-bold text-lavender-900">
           Essential Well-being Tips
         </h2>
-        <p className="text-gray-600 mt-2">
+        <p className="text-gray-600 text-xl mt-2">
           Simple ways to maintain a healthy mind and body.
         </p>
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {[
             {
               title: "Practice Mindfulness",
@@ -170,10 +181,10 @@ export default function Home() {
               transition={{ delay: index * 0.2 }}
             >
               {tip.icon}
-              <h3 className="text-lg font-semibold text-lavender-800 mt-3">
+              <h3 className="text-xl font-semibold text-lavender-800 mt-3">
                 {tip.title}
               </h3>
-              <p className="text-gray-600 text-sm mt-2">{tip.description}</p>
+              <p className="text-gray-600 text-m mt-2">{tip.description}</p>
             </motion.div>
           ))}
         </div>
@@ -181,14 +192,14 @@ export default function Home() {
 
       {/* Support the Project */}
       <section className="py-16 px-6 text-center bg-peach-200">
-        <h2 className="text-3xl font-bold text-lavender-900">
+        <h2 className="text-4xl font-bold text-lavender-900">
           Support the Project
         </h2>
-        <p className="text-gray-600 mt-2">
+        <p className="text-gray-600 text-xl mt-4">
           If you find this tool helpful, consider buying me a coffee to <br />{" "}
           support ongoing development!
         </p>
-        <div className="mt-6 flex justify-center">
+        <div className="mt-8 flex justify-center">
           <a
             href="https://www.buymeacoffee.com/yourlink"
             target="_blank"
