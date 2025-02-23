@@ -8,6 +8,7 @@ import Nav from "./components/Nav";
 import Profile from "./components/Profile";
 import { Toaster } from "sonner";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
       </div>
