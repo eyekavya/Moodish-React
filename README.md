@@ -1,6 +1,6 @@
 # Moodish
 
-A **React-powered** mental wellness app designed to help you **track your moods**, and improve your emotional well-being.
+An **AI-powered** mental wellness app designed to help you **track your moods**, and improve your emotional well-being.
 
 ## ✨ Features
 
