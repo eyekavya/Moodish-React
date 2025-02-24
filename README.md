@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Moodish
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A **React-powered** mental wellness app designed to help you **track your moods**, and improve your emotional well-being.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+- **Mood Tracking** – Log your daily emotions and visualize patterns.
+- **Personalized Suggestions** – Get AI-powered recommendations based on your mood.
+<!-- - **Positive Content Feed** – Scroll through uplifting quotes, challenges, and interactive content. -->
+- **Progress Insights** – See how your mood evolves over time.
+- **Smooth & Aesthetic UI** – A calming design with soft gradients and Framer Motion animations.
 
-### `npm start`
+## 🛠️ Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend**: React, TailwindCSS, Framer Motion
+- **Backend**: Firebase (Firestore, Authentication)
+- **AI Integration**: Google AI API for personalized suggestions
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 Getting Started
 
-### `npm test`
+### 1️⃣ Clone the Repository
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+git clone https://github.com/eyekavya/Moodish-React.git
+cd moodish
+```
 
-### `npm run build`
+### 2️⃣ Install Dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3️⃣ Set Up Firebase
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Create a Firebase project.
+2. Enable Firestore and Authentication.
+3. Copy your Firebase config to `.env`:
 
-### `npm run eject`
+```sh
+REACT_APP_FIREBASE_API_KEY=your_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+...
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 4️⃣ Run the App
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```sh
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<!-- ## 🎨 UI Preview
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Moodish UI Preview](https://your-image-link.com) -->
 
-## Learn More
+## 🤝 Contributing
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+PRs are welcome! If you have suggestions, feel free to open an issue.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Made with 💜 for better mental wellness.
