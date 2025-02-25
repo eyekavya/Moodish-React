@@ -76,3 +76,13 @@ html {
 .hover\:scale-102:hover {
   transform: scale(1.02);
 }
+
+@media (max-width: 426px) {
+  .hero-heading {
+    font-size: 56px;
+  }
+
+  .hero-sparkle {
+    display: none;
+  }
+}

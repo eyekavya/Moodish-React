@@ -28,10 +28,12 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <span className="text-text-contrast">Understand & Elevate Your</span>
-          <span className="flex items-center gap-2 text-lavender-600">
+          <span className="text-text-contrast hero-heading">
+            Understand & Elevate Your
+          </span>
+          <span className="flex items-center gap-2 text-lavender-600 hero-heading">
             Mood Effortlessly{" "}
-            <Sparkles className="w-12 h-12 text-lavendar-600 animate-pulse" />
+            <Sparkles className="w-12 h-12 text-lavendar-600 animate-pulse hero-sparkle" />
           </span>
         </motion.h1>
 
