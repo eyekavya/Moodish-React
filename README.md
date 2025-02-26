@@ -49,9 +49,9 @@ REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
 npm start
 ```
 
-<!-- ## 🎨 UI Preview
+## 🎨 UI Preview
 
-![Moodish UI Preview](https://your-image-link.com) -->
+![Moodish UI Preview](https://www.moodish.eyekavya.com/app-thumbnail.png) -->
 
 ## 🤝 Contributing
 
